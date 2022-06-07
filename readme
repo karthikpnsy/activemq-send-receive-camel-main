@@ -1,0 +1,10 @@
+1) Please checkout project
+2) update send and receive active mq in application.properties
+  spring.activemq.broker-url=tcp://localhost:61616
+  sendqueue=sendqueue
+  receivequeue=receivequeue
+ 3) run the spring boot application 
+4) hit url http://localhost:8080/hello & make sure service is up 
+5) From activemq console- >push message from "receivequeue" -> it will forward the same message to "sendqueue"
+
+
