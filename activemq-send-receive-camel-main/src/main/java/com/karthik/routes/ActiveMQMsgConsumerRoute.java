@@ -7,8 +7,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class ActiveMQMsgConsumerRoute extends RouteBuilder {
 
-	@Value("${sendqueue}")
-	private String sendqueue;
 	
 	@Value("${receivequeue}")
 	private String receivequeue;
@@ -17,10 +15,12 @@ public class ActiveMQMsgConsumerRoute extends RouteBuilder {
     public void configure() throws Exception {
     	
     	
-        from("activemq:receivequeue").log("${body}")
-                .to("log:received-message-from-active-mq").to("activemq:sendqueue");
-        
-        
+     
+        from("timer:test?period=6000")
+                .transform().constant("Hello Message from Apache Camel ")
+                .log("${body}");
+                //send this message to ActiveMQ queue
+                .to("activemq:receivequeue");
     }
     
     
